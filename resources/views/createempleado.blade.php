@@ -10,15 +10,19 @@
             <div class="form-group row">
                 <label for="nombreC" class="col-sm-2 col-form-label">Nombre completo *</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nombreC" id="nombreC" placeholder="Nombre completo del empleado">
-                  <small id="nombreCS" hidden="true" class="form-text text-muted">Por favor ingresar su nombre</small>
+                  <input type="text" class="form-control" name="nombreC" id="nombreC" placeholder="Nombre completo del empleado" value="{{ old('nombreC') }}">
+                  @error('nombreC')
+                    <small id="nombreCS" class="form-text text-muted">{{ $message }}</small>
+                  @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <label for="correoE" class="col-sm-2 col-form-label">Correo electronico *</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="correoE" id="correoE" placeholder="Correo electrónico">
-                    <small id="correoES"  hidden="true" class="form-text text-muted">Por favor ingresar su correo electronico</small>
+                    <input type="text" class="form-control" name="email" id="correoE" placeholder="Correo electrónico" value="{{ old('email') }}">
+                    @error('email')
+                        <small id="emailS" class="form-text text-muted">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
@@ -29,13 +33,16 @@
                         <label class="form-check-label" for="sexo1">
                           Masculino
                         </label>
-                      </div>
-                      <div class="form-check">
+                    </div>
+                    <div class="form-check">
                         <input class="form-check-input" type="radio" name="sexo" id="sexo2" value="F">
                         <label class="form-check-label" for="sexo2">
                           Femenino
                         </label>
                     </div>
+                    @error('sexo')
+                        <small id="sexo" class="form-text text-muted">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
@@ -47,13 +54,18 @@
                             <option value="{{ $value["id"] }}">{{ $value["nombre"] }}</option>
                         @endforeach
                     </select>
+                    @error('areaId')
+                        <small id="areaId" class="form-text text-muted">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Descripción *</label>
                 <div class="col-sm-10">
-                    <textarea type="text" class="form-control" name="descrip" id="descrip" placeholder="Descripción de la experiencia del empleado"></textarea>
-                    <small id="descripS"  hidden="true" class="form-text text-muted">Por favor diligencia la descripción</small>
+                    <textarea type="text" class="form-control" name="descrip" id="descrip" placeholder="Descripción de la experiencia del empleado" value="{{ old('descrip') }}"></textarea>
+                    @error('descrip')
+                        <small id="descripS" class="form-text text-muted">{{ $message }}</small>
+                    @enderror
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="deseoR" name="deseoR">
                         <label class="form-check-label" for="deseoR">Deseo recibir boletín informativo</label>
@@ -69,7 +81,7 @@
                                 <label class="form-check-label" for="rol{{ $value["id"] }}">{{ $value["nombre"] }}</label>
                             </div>
                         @endforeach
-                    <button type="submit" class="btn btn-primary" disabled="true" id="btnSubmit">Guardar</button>
+                    <button type="submit" class="btn btn-primary" disabled id="btnSubmit">Guardar</button>
                 </div>
             </div>
         </form>
@@ -85,7 +97,7 @@
     var nombreCS = document.getElementById("nombreCS");
 
     var correoF = document.getElementById("correoE");
-    var correoFS = document.getElementById("correoES");
+    var correoFS = document.getElementById("emailS");
 
     var descripF = document.getElementById("descrip");
     var descripFS = document.getElementById("descripS");

@@ -33,10 +33,31 @@ class EmpleadoController extends Controller
 
     //Función que permite crear un nuevo usario
     public function create(Request $request){
+
+        $rules = [
+            'nombreC' => 'required',
+            'email' => 'required|email|unique:empleado',
+            'sexo' => 'required',
+            'areaId' => 'required',
+            'descrip' => 'required'
+        ];
+
+        $message = [
+            'nombreC.required' => 'Ingrese su nombre',
+            'email.required' => 'Ingrese su correo electronico',
+            'email.email' => 'El correo diligenciado no es valido',
+            'email.unique' => 'El correo diligenciado ya existe',
+            'sexo.required' => 'Seleccione su sexo',
+            'areaId.required' => 'Seleccione el área al que corresponde',
+            'descrip.required' => 'Ingrese una descripción'
+        ];
+
+        $request->validate($rules, $message);
+
         //Creamos el nuevo empleado
         $empleado = new Empleado();
         $empleado->nombres = $request->get('nombreC');
-        $empleado->email = $request->get('correoE');
+        $empleado->email = $request->get('email');
         $empleado->sexo = $request->get('sexo');
         $empleado->area_id = $request->get('areaId');
 
@@ -65,9 +86,30 @@ class EmpleadoController extends Controller
 
     //Función editar empleado
     public function editEmp(Request $request, $id){
+
+        $rules = [
+            'nombreC' => 'required',
+            'email' => 'required|email',
+            'sexo' => 'required',
+            'areaId' => 'required',
+            'descrip' => 'required'
+        ];
+
+        $message = [
+            'nombreC.required' => 'Ingrese su nombre',
+            'email.required' => 'Ingrese su correo electronico',
+            'email.email' => 'El correo diligenciado no es valido',
+            'email.unique' => 'El correo diligenciado ya existe',
+            'sexo.required' => 'Seleccione su sexo',
+            'areaId.required' => 'Seleccione el área al que corresponde',
+            'descrip.required' => 'Ingrese una descripción'
+        ];
+
+        $request->validate($rules, $message);
+
         $empleado = Empleado::find($id);
         $empleado->nombres = $request->get('nombreC');
-        $empleado->email = $request->get('correoE');
+        $empleado->email = $request->get('email');
         $empleado->sexo = $request->get('sexo');
         $empleado->area_id = $request->get('areaId');
 
