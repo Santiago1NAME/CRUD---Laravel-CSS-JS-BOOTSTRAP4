@@ -69,7 +69,7 @@ class EmpleadoController extends Controller
 
         $empleado->boletin = $boletin;
         $empleado->descripcion = $request->get('descrip');
-        //$empleado->save();
+        $empleado->save();
         \Session::flash('message', 'Dato registrado correctamente!!');
         return redirect('/');
     }
