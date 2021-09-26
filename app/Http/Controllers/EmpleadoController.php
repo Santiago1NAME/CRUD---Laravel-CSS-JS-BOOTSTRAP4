@@ -69,7 +69,8 @@ class EmpleadoController extends Controller
 
         $empleado->boletin = $boletin;
         $empleado->descripcion = $request->get('descrip');
-        $empleado->save();
+        //$empleado->save();
+        \Session::flash('message', 'Dato registrado correctamente!!');
         return redirect('/');
     }
 
@@ -122,12 +123,14 @@ class EmpleadoController extends Controller
         $empleado->boletin = $boletin;
         $empleado->descripcion = $request->get('descrip');
         $empleado->save();
+        \Session::flash('update', 'El empleado ' . $empleado->nombres . ' fue actualizado');
         return redirect('/');
     }
 
     //Función eliminar empleado
     public function deletEmp($id){
         $empleado = Empleado::find($id);
+        \Session::flash('delete', 'El empleado ' . $empleado["nombres"] . ' fue eliminado');
         $empleado->delete();
         return redirect('/');
     }

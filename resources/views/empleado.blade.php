@@ -5,6 +5,23 @@
     <a href="/empleado" class="btn btn-primary">Agregar</a>
     <br>
     <br>
+    @if(Session::has('message'))
+        <div class="alert alert-success text-center" role="alert">
+            {!! Session::get('message') !!}
+        </div>
+    @endif
+    @if(Session::has('delete'))
+        <div class="alert alert-danger text-center" role="alert">
+            {!! Session::get('delete') !!}
+        </div>
+    @endif
+    @if(Session::has('update'))
+        <div class="alert alert-success text-center" role="alert">
+            {!! Session::get('update') !!}
+        </div>
+    @endif
+    <br>
+    <br>
     <table class="table table-striped" id="empleados">
         <thead  class="text-center">
             <tr>
