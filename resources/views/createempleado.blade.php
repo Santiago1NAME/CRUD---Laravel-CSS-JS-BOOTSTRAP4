@@ -77,7 +77,7 @@
                 <div class="col-sm-10">
                         @foreach ($roles as $key => $value)
                             <div class="form-check">
-                                <input class="form-check-input checkboxD" type="checkbox" id="rol{{ $value["id"] }}" name="rolF" value="{{ $value["id"] }}">
+                                <input class="form-check-input checkboxD" type="checkbox" id="rol{{ $value["id"] }}" name="rolF[]" value="{{ $value["id"] }}">
                                 <label class="form-check-label" for="rol{{ $value["id"] }}">{{ $value["nombre"] }}</label>
                             </div>
                         @endforeach

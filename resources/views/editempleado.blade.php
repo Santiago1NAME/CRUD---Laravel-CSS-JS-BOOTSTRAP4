@@ -78,10 +78,11 @@
                 <div class="col-sm-10">
                         @foreach ($roles as $key => $value)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rol{{ $value["id"] }}" name="rolF" value="{{ $value["id"] }}">
+                                <input class="form-check-input" type="checkbox" id="rol{{ $value["id"] }}" name="rolF[]" value="{{ $value["id"] }}" {{ $value["id"] == $rolesEmple[0]["rol_id"] ? 'checked' : '' }}>
                                 <label class="form-check-label" for="rol{{ $value["id"] }}">{{ $value["nombre"] }}</label>
                             </div>
                         @endforeach
+
                     <button type="submit" disabled class="btn btn-primary" id="btnSubmit">Guardar</button>
                 </div>
             </div>

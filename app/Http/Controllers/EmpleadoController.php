@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\Area;
 use App\Models\Rol;
+use App\Models\RolEmp;
 use DB;
 
 class EmpleadoController extends Controller
@@ -70,6 +71,14 @@ class EmpleadoController extends Controller
         $empleado->boletin = $boletin;
         $empleado->descripcion = $request->get('descrip');
         $empleado->save();
+        $roles = $request['rolF'];
+        //El foreach es para recorrer todos los roles seleccionados y sean guardados en db
+        foreach($roles as $rol){
+            $rolesEm = new RolEmp();
+            $rolesEm->empleado_id = $empleado->id;
+            $rolesEm->rol_id = $rol;
+            $rolesEm->save();
+        }
         \Session::flash('message', 'Dato registrado correctamente!!');
         return redirect('/');
     }
@@ -77,12 +86,13 @@ class EmpleadoController extends Controller
     //Función que permite visualizar el formulario de editar empleado
     public function viewEdit($id){
         $empleado = Empleado::where('id', $id)->get();
+        $rolesEmple = RolEmp::where('empleado_id', $id)->get();
         //Consultamos las areas registradas en la db
         $areas = Area::all();
         //Consultamos los roles registradas en la db
         $roles = Rol::all();
 
-        return view('editempleado', compact('empleado','areas','roles'));
+        return view('editempleado', compact('empleado','rolesEmple','areas','roles'));
     }
 
     //Función editar empleado
