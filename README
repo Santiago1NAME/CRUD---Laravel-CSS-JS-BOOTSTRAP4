@@ -1,0 +1,8 @@
+El presente proyecto es un CRUD de empleados realizado con las siguientes tecnologias:
+- PHP en su framework Laravel ultima versión
+- Bootstrap4
+- JavaScript
+
+Para la instalación del framework Laravel toca realizar la descarga de la carpeta y ejecutar por consola (en la raiz del proyecto) el comando "npm install"
+que nos permitira generar automáticamente un directorio node_modules donde se guardan los paquetes instalados y un archivo package-lock.json
+que es el responsable de llevar un historial de los cambios realizados dentro de node_modules.
