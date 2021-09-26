@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="container">
     <div class="card">
-        <form class="p-4" action="/empleado/create" method="POST">
+        <form class="p-4" action="/empleado/create" method="POST" id="formC">
             @csrf
             <div class="alert alert-primary col" role="alert">
                 Los campos con asteriscos (*) son obligatorios
@@ -36,7 +36,6 @@
                           Femenino
                         </label>
                     </div>
-                    <small id="sexoS" class="form-text text-muted">Por favor seleccione su sexo</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -48,7 +47,6 @@
                             <option value="{{ $value["id"] }}">{{ $value["nombre"] }}</option>
                         @endforeach
                     </select>
-                    <small id="areaIdS" class="form-text text-muted">Por favor seleccione su área</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -67,32 +65,31 @@
                 <div class="col-sm-10">
                         @foreach ($roles as $key => $value)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rol{{ $value["id"] }}" name="rolF" value="{{ $value["id"] }}">
+                                <input class="form-check-input checkboxD" type="checkbox" id="rol{{ $value["id"] }}" name="rolF" value="{{ $value["id"] }}">
                                 <label class="form-check-label" for="rol{{ $value["id"] }}">{{ $value["nombre"] }}</label>
                             </div>
                         @endforeach
-                    <button type="submit" class="btn btn-primary" disabled="true">Guardar</button>
+                    <button type="submit" class="btn btn-primary" disabled="true" id="btnSubmit">Guardar</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <script>
+
+    //Validamos los eventos keyup y click para ejecutar la función validarForm()
+    window.addEventListener("keyup", validarForm);
+    window.addEventListener("click", validarForm);
+
     var nombreC = document.getElementById("nombreC");
     var nombreCS = document.getElementById("nombreCS");
 
     var correoF = document.getElementById("correoE");
     var correoFS = document.getElementById("correoES");
 
-    var sexoF = document.getElementById("sexo");
-    var sexoFS = document.getElementById("sexoS");
-
-    var areaIdF = document.getElementById("areaId");
-    var areaIdFS = document.getElementById("areaIdS");
-
     var descripF = document.getElementById("descrip");
     var descripFS = document.getElementById("descripS");
-    var button = document.querySelector(".btn");
+
 
     nombreC.addEventListener('change', (event) => {
         if(nombreC.value == ""){
@@ -108,20 +105,6 @@
             correoFS.hidden = true;
         }
     });
-    /*sexoF.addEventListener('change', (event) => {
-        if(nombreC.value == ""){
-            sexoFS.hidden = false;
-        }else{
-            nombsexoFSreCS.hidden = true;
-        }
-    });
-    areaIdF.addEventListener('change', (event) => {
-        if(nombreC.value == ""){
-            areaIdFS.hidden = false;
-        }else{
-            areaIdFS.hidden = true;
-        }
-    });*/
     descripF.addEventListener('change', (event) => {
         if(descripF.value == ""){
             descripFS.hidden = false;
@@ -129,5 +112,56 @@
             descripFS.hidden = true;
         }
     });
+    /*
+        Función que nos permite validar si los campos (input, textarea, radio, select) estan diligenciados
+    */
+    function validarForm() {
+
+        //Consultamos los campos inputs
+        var inputs = document.getElementsByTagName("input");
+        //Consultamos los campos textareas
+        var textareas = document.getElementsByTagName("textarea");
+        var camposLlenos = true;
+        var checkR = false;
+        var chex = false;
+
+        for (var i = 0; i < inputs.length; i++) {
+            //Validamos que los campos input de tipo text esten diligenciados
+            if (inputs[i].type === "text" && !inputs[i].value) {
+                camposLlenos = false;
+            }
+
+            //Validamos que los campos input de tipo radio esten diligenciados
+            if (inputs[i].type === "radio" && inputs[i].checked) {
+                checkR = true;
+            }
+
+            //Validamos que los campos input de tipo checkbox esten diligenciados
+            if (inputs[i].type === "checkbox" && inputs[i].checked) {
+                chex = true;
+            }
+
+        }
+
+        if (!checkR) {
+            camposLlenos = false;
+        }
+
+        if (!chex) {
+            camposLlenos = false;
+        }
+
+        for (var j = 0; j < textareas.length; j++) {
+            if (!textareas[j].value) {
+                camposLlenos = false;
+            }
+        }
+
+        if (camposLlenos) {
+            document.getElementById("btnSubmit").disabled = false;
+        } else {
+            document.getElementById("btnSubmit").disabled = true;
+        }
+    }
 </script>
 @endsection

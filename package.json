@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "bootstrap-icons": "^1.5.0"
+        "bootstrap-icons": "^1.5.0",
+        "lobibox": "^1.2.7"
     }
 }
